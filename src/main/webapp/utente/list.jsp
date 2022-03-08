@@ -45,7 +45,7 @@
 				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
-				    	<a class="btn btn-primary " href="PrepareInsertRegistaServlet">Add New</a>
+				    	<a class="btn btn-primary " href="PrepareInsertUserServlet">Add New</a>
 				    
 				        <div class='table-responsive'>
 				            <table class='table table-striped ' >
@@ -53,20 +53,17 @@
 				                    <tr>
 			                         	<th>Nome</th>
 				                        <th>Cognome</th>
-				                        <th>NickName</th>
-				                        <th>Data di Nascita</th>
-				                        <th>Sesso</th>
-				                        <th>Azioni</th>
+				                        <th>Username</th>
+				                        <th>Data di Creazione</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
-				                	<c:forEach items="${registi_list_attribute}" var="registaItem">
+				                	<c:forEach items="${users_list_attribute}" var="userItem">
 										<tr>
-											<td>${registaItem.nome }</td>
-											<td>${registaItem.cognome }</td>
-											<td>${registaItem.nickName }</td>
-											<td><fmt:formatDate type = "date" value = "${registaItem.dataDiNascita}" /></td>
-											<td>${registaItem.sesso.abbreviazione }</td>
+											<td>${userItem.nome }</td>
+											<td>${userItem.cognome }</td>
+											<td>${userItem.username }</td>
+											<td><fmt:formatDate type = "date" value = "${userItem.dateCreated}" /></td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaRegistaServlet?idRegista=${registaItem.id}">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareEditRegistaServlet?idRegista=${registaItem.id}">Modifica</a>

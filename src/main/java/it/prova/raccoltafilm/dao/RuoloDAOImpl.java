@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
 import it.prova.raccoltafilm.model.Ruolo;
 
 public class RuoloDAOImpl implements RuoloDAO {
@@ -18,8 +17,7 @@ public class RuoloDAOImpl implements RuoloDAO {
 
 	@Override
 	public List<Ruolo> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from Ruolo", Ruolo.class).getResultList();
 	}
 
 	@Override
@@ -58,6 +56,12 @@ public class RuoloDAOImpl implements RuoloDAO {
 				.setParameter(2, codice);
 		
 		return query.getResultStream().findFirst().orElse(null);
+	}
+
+	@Override
+	public List<Ruolo> findByExample(Ruolo example) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

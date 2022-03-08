@@ -9,7 +9,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
+import it.prova.raccoltafilm.model.Ruolo;
 import it.prova.raccoltafilm.model.Sesso;
+import it.prova.raccoltafilm.model.StatoUtente;
+import it.prova.raccoltafilm.model.Utente;
+import it.prova.raccoltafilm.service.MyServiceFactory;
 
 public class UtilityForm {
 
@@ -32,6 +36,45 @@ public class UtilityForm {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean validateUtenteBean(Utente utenteToBeValidated) {
+		// prima controlliamo che non siano vuoti i parametri
+		if (StringUtils.isBlank(utenteToBeValidated.getNome())
+				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
+				|| StringUtils.isBlank(utenteToBeValidated.getUsername()) 
+				|| StringUtils.isBlank(utenteToBeValidated.getPassword())
+				|| utenteToBeValidated.getDateCreated() == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static Utente createUserFromParams(String nome, String cognome, String username, String dataCreazione) {
+		Utente result = new Utente(nome, cognome, username);
+		result.setDateCreated(parseDataCreazioneFromString(dataCreazione));
+		return result;
+	}
+	
+	public static Utente createUserFromParams(String nome, String cognome, String username, String password, String dataCreazione, String[] ruoli) {
+		Utente result = new Utente(nome, cognome, username, password);
+		result.setDateCreated(parseDataCreazioneFromString(dataCreazione));
+		
+		if (ruoli == null || ruoli.length < 1) {
+			result.setRuoli(null);
+		} else {
+			for (int i=0;i<ruoli.length;i++) {
+				try {
+					result.getRuoli().add(MyServiceFactory.getRuoloServiceInstance().caricaSingoloElemento(Long.parseLong(ruoli[i])));
+				} catch (Exception e) {
+					
+				}
+			}
+		}
+		
+		result.setStato(StatoUtente.CREATO);
+		
+		return result;
 	}
 	
 	public static Film createFilmFromParams(String titoloInputParam, String genereInputParam,
@@ -68,6 +111,17 @@ public class UtilityForm {
 
 		try {
 			return new SimpleDateFormat("yyyy-MM-dd").parse(dataDiNascitaStringParam);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	public static Date parseDataCreazioneFromString(String data) {
+		if (StringUtils.isBlank(data))
+			return null;
+
+		try {
+			return new SimpleDateFormat("yyyy-MM-dd").parse(data);
 		} catch (ParseException e) {
 			return null;
 		}

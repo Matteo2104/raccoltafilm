@@ -45,6 +45,17 @@ public class Utente {
 
 	public Utente() {
 	}
+	public Utente(String nome, String cognome, String username) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+	}
+	public Utente(String nome, String cognome, String username, String password) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+	}
 
 	public Utente(String username, String password) {
 		super();
@@ -130,6 +141,12 @@ public class Utente {
 				return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "Utente [id=" + id + ", username=" + username + ", password=" + password + ", nome=" + nome
+				+ ", cognome=" + cognome + ", dateCreated=" + dateCreated + ", stato=" + stato + "]";
 	}
 
 }

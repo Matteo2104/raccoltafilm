@@ -20,7 +20,7 @@ public class CheckAuthFilter implements Filter {
 
 	private static final String HOME_PATH = "";
 	private static final String[] EXCLUDED_URLS = {"/login.jsp","/LoginServlet","/LogoutServlet","/assets/"};
-	private static final String[] PROTECTED_URLS = {"/users/", "/PrepareDeleteFilmServlet", "/PrepareDeleteRegistaServlet"};
+	private static final String[] PROTECTED_URLS = {"/utente/", "/PrepareDeleteFilmServlet", "/PrepareDeleteRegistaServlet"};
 
 	public CheckAuthFilter() {
 	}
@@ -42,18 +42,22 @@ public class CheckAuthFilter implements Filter {
 		
 		//se non lo e' bisogna controllare sia sessione che percorsi protetti
 		if (!isInWhiteList) {
+			
 			Utente utenteInSession = (Utente)httpRequest.getSession().getAttribute("userInfo");
 			//intanto verifico se utente in sessione
 			if (utenteInSession == null) {
 				httpResponse.sendRedirect(httpRequest.getContextPath());
 				return;
 			}
+			
 			//controllo che utente abbia ruolo admin se nel path risulta presente /admin/
 			if(isPathForOnlyAdministrators(pathAttuale) && !utenteInSession.isAdmin()) {
 				httpRequest.setAttribute("errorMessage", "Non si è autorizzati alla navigazione richiesta");
 				httpRequest.getRequestDispatcher("/index.jsp").forward(httpRequest, httpResponse);
 				return;
 			}
+			
+			
 		}
 
 		chain.doFilter(request, response);

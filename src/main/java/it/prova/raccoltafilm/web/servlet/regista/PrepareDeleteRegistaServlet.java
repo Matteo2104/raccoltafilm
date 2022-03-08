@@ -51,6 +51,8 @@ public class PrepareDeleteRegistaServlet extends HttpServlet {
 						response);
 				return;
 			}
+			
+			System.out.println(registaInstance);
 
 			request.setAttribute("delete_regista_attr", registaInstance);
 		} catch (Exception e) {

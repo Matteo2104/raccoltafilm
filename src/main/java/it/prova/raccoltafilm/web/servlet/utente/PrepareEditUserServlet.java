@@ -40,13 +40,31 @@ public class PrepareEditUserServlet extends HttpServlet {
 		}
 		
 		try {
+			// carico un utente eager
 			Utente utente = MyServiceFactory.getUtenteServiceInstance().caricaSingoloElementoEager(Long.parseLong(idUser));
+			
+			// carico su request l'utente
 			request.setAttribute("edit_utente_attr", utente);
+			
+			// carico anche la lista di tutti i possibili ruoli
 			request.setAttribute("list_utente_role_attr", MyServiceFactory.getRuoloServiceInstance().listAll());
+			
+			// infine inserisco all'interno di una lista di stringhe gli id dei ruoli
+			// relativi all'utente
 			List<String> ruoliCheckedId = new ArrayList<>();
 			for (Ruolo item : utente.getRuoli()) {
-				ruoliCheckedId.add(item.toString());
+				ruoliCheckedId.add(item.getId().toString());
 			}
+			
+			/*
+			// only for test
+			for (String item : ruoliCheckedId) {
+				System.out.println(item);
+			}
+			System.out.println("\n");
+			*/
+			
+			// ...e li carico su request
 			request.setAttribute("list_utente_rolechecked_attr", ruoliCheckedId);
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore");

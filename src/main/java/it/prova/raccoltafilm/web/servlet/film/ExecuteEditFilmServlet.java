@@ -13,9 +13,7 @@ import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.service.MyServiceFactory;
 import it.prova.raccoltafilm.utility.UtilityForm;
 
-/**
- * Servlet implementation class ExecuteEditFilmServlet
- */
+
 @WebServlet("/ExecuteEditFilmServlet")
 public class ExecuteEditFilmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,10 +52,12 @@ public class ExecuteEditFilmServlet extends HttpServlet {
 
 		
 		
-		
+		try {
+			
 		// se la validazione non risulta ok
 		if (!UtilityForm.validateFilmBean(filmInstance)) {
 			request.setAttribute("edit_film_attr", filmInstance);
+			request.setAttribute("registi_list_attr", MyServiceFactory.getRegistaServiceInstance().listAllElements());
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			request.getRequestDispatcher("/film/edit.jsp").forward(request, response);
 			return;
@@ -69,7 +69,7 @@ public class ExecuteEditFilmServlet extends HttpServlet {
 		
 		System.out.println(filmInstance);
 				
-		try {
+		
 			MyServiceFactory.getFilmServiceInstance().aggiorna(filmInstance);
 			
 			request.setAttribute("film_list_attribute", MyServiceFactory.getFilmServiceInstance().listAllElements());

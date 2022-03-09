@@ -85,9 +85,14 @@ public class UtilityForm {
 			result.setMinutiDurata(Integer.parseInt(minutiDurataInputParam));
 		}
 		result.setDataPubblicazione(parseDateArrivoFromString(dataPubblicazioneStringParam));
-		if (NumberUtils.isCreatable(registaIdStringParam)) {
-			result.setRegista(new Regista(Long.parseLong(registaIdStringParam)));
+		try {
+			if (NumberUtils.isCreatable(registaIdStringParam)) {
+				result.setRegista(MyServiceFactory.getRegistaServiceInstance().caricaSingoloElemento(Long.parseLong(registaIdStringParam)).get());
+			}
+		} catch (Exception e) {
+			
 		}
+		
 		return result;
 	}
 

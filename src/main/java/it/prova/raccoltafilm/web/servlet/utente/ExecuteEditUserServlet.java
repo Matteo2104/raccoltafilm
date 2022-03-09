@@ -1,6 +1,9 @@
 package it.prova.raccoltafilm.web.servlet.utente;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.raccoltafilm.model.Regista;
+import it.prova.raccoltafilm.model.Ruolo;
 import it.prova.raccoltafilm.model.Utente;
 import it.prova.raccoltafilm.service.MyServiceFactory;
 import it.prova.raccoltafilm.utility.UtilityForm;
@@ -53,16 +57,31 @@ public class ExecuteEditUserServlet extends HttpServlet {
 		Utente utenteInstance = UtilityForm.createUserFromParams(nomeParam, cognomeParam,
 				usernameParam, passwordParam, dateCreatedParam, ruoliParam);
 
-
-		
-		
-		
-		// assegno l'id
-		utenteInstance.setId(Long.parseLong(idUser));
-		
-		//System.out.println(utenteInstance);
-			
 		try {
+			
+			// eseguo la validazione (i campi non possono essere vuoti)
+			if (!UtilityForm.validateUtenteBean(utenteInstance)) {
+				request.setAttribute("edit_utente_attr", utenteInstance);
+				request.setAttribute("list_utente_role_attr", MyServiceFactory.getRuoloServiceInstance().listAll());
+				
+				List<String> ruoliCheckedId = new ArrayList<>();
+				for (Ruolo item : utenteInstance.getRuoli()) {
+					ruoliCheckedId.add(item.getId().toString());
+				}
+				request.setAttribute("list_utente_rolechecked_attr", ruoliCheckedId);
+				
+				request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+				request.getRequestDispatcher("/utente/edit.jsp").forward(request, response);
+				return;
+			}
+			
+			
+			// assegno l'id
+			utenteInstance.setId(Long.parseLong(idUser));
+			
+			//System.out.println(utenteInstance);
+			
+		
 			MyServiceFactory.getUtenteServiceInstance().aggiorna(utenteInstance);
 			
 			request.setAttribute("users_list_attribute", MyServiceFactory.getUtenteServiceInstance().listAll());

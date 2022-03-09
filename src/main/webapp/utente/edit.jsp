@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -53,10 +54,12 @@
 									<input type="text" name="password" id="password" class="form-control" placeholder="Inserire la password" value="${edit_utente_attr.password}" >
 								</div>
 							
-								<div class="col-md-3">
+								
+								<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${edit_utente_attr.dateCreated}' />
+								<div class="col-md-3">	
 									<label for="dateCreated" class="form-label">Data di Creazione </label>
                         			<input class="form-control" id="dateCreated" type="date" placeholder="dd/MM/yy"
-                            			title="formato : gg/mm/aaaa"  name="dateCreated" value="${edit_utente_attr.dateCreated}"  >
+                            			title="formato : gg/mm/aaaa"  name="dateCreated" value="${parsedDate}"  >
 								</div>
 										
 								<c:forEach items="${list_utente_role_attr}" var="ruolo" >

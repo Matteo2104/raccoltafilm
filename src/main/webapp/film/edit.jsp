@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -42,10 +43,11 @@
 									<input type="text" name="genere" id="genere" class="form-control" placeholder="Inserire il genere" value="${edit_film_attr.genere}" >
 								</div>
 							
+								<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${edit_film_attr.dataPubblicazione}' />
 								<div class="col-md-3">
 									<label for="dataPubblicazione" class="form-label">Data di Pubblicazione </label>
                         			<input class="form-control" id="dataPubblicazione" type="date" placeholder="dd/MM/yy"
-                            			title="formato : gg/mm/aaaa"  name="dataPubblicazione" value="${edit_film_attr.dataPubblicazione}"  >
+                            			title="formato : gg/mm/aaaa"  name="dataPubblicazione" value="${parsedDate}"  >
 								</div>
 					
 								<div class="col-md-6">

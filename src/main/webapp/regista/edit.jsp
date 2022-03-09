@@ -1,3 +1,4 @@
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -46,10 +47,11 @@
 									<input type="text" class="form-control" name="nickName" id="nickName" placeholder="Inserire il nickname" value="${edit_regista_attr.nickName}" >
 								</div>
 								
+								<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${edit_regista_attr.dataDiNascita}' />
 								<div class="col-md-3">
 									<label for="dataDiNascita" class="form-label">Data di Nascita </label>
                         			<input class="form-control" id="dataDiNascita" type="date" placeholder="dd/MM/yy"
-                            			title="formato : gg/mm/aaaa"  name="dataDiNascita" value="${edit_regista_attr.dataDiNascita}"  >
+                            			title="formato : gg/mm/aaaa"  name="dataDiNascita" value="${parsedDate}"  >
 								</div>
 								
 								<div class="col-md-3">

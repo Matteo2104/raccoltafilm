@@ -65,7 +65,7 @@
 											<td>${userItem.username }</td>
 											<td><fmt:formatDate type = "date" value = "${userItem.dateCreated}" /></td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaRegistaServlet?idRegista=${userItem.id}">Visualizza</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaUserServlet?idUser=${userItem.id}">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareEditUserServlet?idUser=${userItem.id}">Modifica</a>
 												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteRegistaServlet?idRegista=${userItem.id}">Elimina</a>
 											</td>

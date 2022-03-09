@@ -1,4 +1,5 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -57,9 +58,14 @@
 								<div class="col-md-3">
 									<label for="sesso" class="form-label">Sesso </label>
 								    <select class="form-select" id="sesso" name="sesso" >
-								    	<option value="${edit_regista_attr.sesso}" selected> - Selezionare - </option>
-								      	<option value="MASCHIO" >M</option>
-								      	<option value="FEMMINA"  >F</option>
+								    	<c:if test="${edit_regista_attr.sesso != null}" >
+								    		<option value="${edit_regista_attr.sesso}" selected> ${edit_regista_attr.sesso} </option>
+								    	</c:if>
+								    	<c:if test="${edit_regista_attr.sesso == null}" >
+								    		<option value="" selected> - Selezionare - </option>
+								    	</c:if>
+								      	<option value="MASCHIO" >MASCHIO</option>
+								      	<option value="FEMMINA"  >FEMMINA</option>
 								    </select>
 								</div>
 								

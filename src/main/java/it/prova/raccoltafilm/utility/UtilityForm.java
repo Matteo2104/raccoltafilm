@@ -77,6 +77,27 @@ public class UtilityForm {
 		return result;
 	}
 	
+	public static Utente createUserFromParams(String nome, String cognome, String username, String dataCreazione, String[] ruoli) {
+		Utente result = new Utente(nome, cognome, username);
+		result.setDateCreated(parseDataCreazioneFromString(dataCreazione));
+		
+		if (ruoli == null || ruoli.length < 1) {
+			result.setRuoli(null);
+		} else {
+			for (int i=0;i<ruoli.length;i++) {
+				try {
+					result.getRuoli().add(MyServiceFactory.getRuoloServiceInstance().caricaSingoloElemento(Long.parseLong(ruoli[i])));
+				} catch (Exception e) {
+					
+				}
+			}
+		}
+		
+		result.setStato(StatoUtente.CREATO);
+		
+		return result;
+	}
+	
 	public static Film createFilmFromParams(String titoloInputParam, String genereInputParam,
 			String minutiDurataInputParam, String dataPubblicazioneStringParam, String registaIdStringParam) {
 

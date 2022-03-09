@@ -92,7 +92,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
 		List<String> whereClauses = new ArrayList<String>();
 
-		StringBuilder queryBuilder = new StringBuilder("select u from Utente u where u.id = u.id ");
+		StringBuilder queryBuilder = new StringBuilder("select u from Utente u join fetch u.ruoli r where u.id = u.id ");
 
 		if (StringUtils.isNotEmpty(example.getNome())) {
 			whereClauses.add(" u.nome  like :nome ");
@@ -110,6 +110,17 @@ public class UtenteDAOImpl implements UtenteDAO {
 			whereClauses.add("u.dateCreated >= :dateCreated ");
 			paramaterMap.put("dateCreated", example.getDateCreated());
 		}
+		
+		List<Long> idRuoliList = new ArrayList<>();
+		for (Ruolo ruolo : example.getRuoli()) {
+			idRuoliList.add(ruolo.getId());
+		}
+		
+		if (example.getRuoli() != null) {
+			whereClauses.add("r.id in :idRuoliList");
+			paramaterMap.put("idRuoliList", idRuoliList);
+		}
+		
 		
 		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));

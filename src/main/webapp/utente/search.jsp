@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -51,6 +53,14 @@
                         			<input class="form-control" id="dataCreazione" type="date" placeholder="dd/MM/yy"
                             			title="formato : gg/mm/aaaa"  name="dataCreazione"   >
 								</div>
+								
+								<c:forEach items="${list_utente_role_attr}" var="ruolo" >
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="${ruolo.id}"
+										id="flexCheckDefault" name="ruoli"> <label class="form-check-label"
+										for="flexCheckDefault"> ${ruolo.descrizione} </label>
+									</div>
+								</c:forEach>
 								
 								
 							<div class="col-12">

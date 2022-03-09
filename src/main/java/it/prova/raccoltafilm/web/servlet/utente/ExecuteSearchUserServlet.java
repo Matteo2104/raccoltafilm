@@ -28,9 +28,10 @@ public class ExecuteSearchUserServlet extends HttpServlet {
 		String cognomeParam = request.getParameter("cognome");
 		String usernameParam = request.getParameter("usernameParam");
 		String dataCreazioneParam = request.getParameter("dataCreazioneParam");
+		String[] ruoliParam = request.getParameterValues("ruoli");
 
 		// creo un bean
-		Utente example = UtilityForm.createUserFromParams(nomeParam, cognomeParam, usernameParam, dataCreazioneParam);
+		Utente example = UtilityForm.createUserFromParams(nomeParam, cognomeParam, usernameParam, dataCreazioneParam, ruoliParam);
 		/*
 		Utente example = new Regista(nomeParam, cognomeParam, usernameParam,
 				UtilityForm.parseDateArrivoFromString(dataCreazioneParam));
@@ -42,10 +43,10 @@ public class ExecuteSearchUserServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
-			request.getRequestDispatcher("search.jsp").forward(request, response);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 			return;
 		}
-		request.getRequestDispatcher("list.jsp").forward(request, response);
+		request.getRequestDispatcher("/utente/list.jsp").forward(request, response);
 	}
 
 }

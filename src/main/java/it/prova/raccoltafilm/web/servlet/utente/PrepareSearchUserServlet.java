@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.prova.raccoltafilm.service.MyServiceFactory;
+
 
 @WebServlet("/utente/PrepareSearchUserServlet")
 public class PrepareSearchUserServlet extends HttpServlet {
@@ -19,7 +21,15 @@ public class PrepareSearchUserServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("search.jsp").forward(request, response);
+		try {
+			request.setAttribute("list_utente_role_attr", MyServiceFactory.getRuoloServiceInstance().listAll());
+		} catch (Exception e) {
+			request.setAttribute("errorMessage", "Attenzione operazione non andata a buon fine");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			return;
+		}
+		
+		request.getRequestDispatcher("/utente/search.jsp").forward(request, response);
 	}
 
 }

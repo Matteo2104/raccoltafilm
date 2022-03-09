@@ -35,7 +35,7 @@ public class PrepareDeleteUserServlet extends HttpServlet {
 
 		try {
 			Utente utenteInstance = MyServiceFactory.getUtenteServiceInstance()
-					.caricaSingoloElemento(Long.parseLong(idUser));
+					.caricaSingoloElementoEager(Long.parseLong(idUser));
 
 			if (utenteInstance == null) {
 				request.setAttribute("errorMessage", "Elemento non trovato.");
@@ -45,9 +45,9 @@ public class PrepareDeleteUserServlet extends HttpServlet {
 			}
 
 			
-			System.out.println(utenteInstance);
 
 			request.setAttribute("delete_utente_attr", utenteInstance);
+			
 		} catch (Exception e) {
 			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
 			e.printStackTrace();

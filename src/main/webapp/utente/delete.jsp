@@ -74,7 +74,7 @@
 							<!-- info ruoli -->
 							<div class="collapse" id="collapseExample">
 							<div class="card card-body">
-								<c:forEach items="${visualizza_utente_attr.ruoli}" var="ruolo" >
+								<c:forEach items="${delete_utente_attr.ruoli}" var="ruolo" >
 									<dl class="row">
 								  	<dt class="col-sm-3 text-right">Codice:</dt>
 								  	<dd class="col-sm-9">${ruolo.codice}</dd>

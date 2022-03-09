@@ -67,7 +67,7 @@
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaUserServlet?idUser=${userItem.id}">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareEditUserServlet?idUser=${userItem.id}">Modifica</a>
-												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteUserServlet?idUser=${userItem.id}">Elimina</a>
+												<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteUserServlet?idUser=${userItem.id}">Disabilita</a>
 											</td>
 										</tr>
 									</c:forEach>
